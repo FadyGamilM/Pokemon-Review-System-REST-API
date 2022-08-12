@@ -28,9 +28,14 @@ namespace pokemonAPI.Repositories
          return category;
       }
 
-      public async Task<Pokemon> GetPokemonByCategory(int Id)
+      public async Task<IEnumerable<Pokemon>> GetPokemonByCategory(int Id)
       {
-         var pokemons = await this._context.Categories.Where(C=> C.Id == Id).
+         var pokemons = await this._context.PokemonCategories.Where(
+            PC => PC.CategoryId == Id
+         ).Select(
+            PC => PC.Pokemon
+         ).AsNoTracking().ToListAsync();
+         return pokemons;
       }
 
       public async Task<bool> IsCategoryExists(int Id)
