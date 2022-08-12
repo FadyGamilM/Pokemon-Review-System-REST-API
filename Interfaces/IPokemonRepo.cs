@@ -18,5 +18,6 @@ namespace pokemonAPI.Interfaces
 
         // check if specific pokemon exists given an Id
         Task<bool> IsPokemonExists(int Id); 
+
     }
 }
