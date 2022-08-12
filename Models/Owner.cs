@@ -10,5 +10,9 @@ namespace pokemonAPI.Models
       //! One-To-Many relation with Country [the N-side]
       public int CountryId {get; set;}
       public Country Country {get; set;}
+      
+      //! Many-To-Many relation
+      public ICollection<PokemonOwner> PokemonOwners {get; set;}
+
    }
 }

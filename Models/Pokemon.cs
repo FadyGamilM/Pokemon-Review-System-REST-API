@@ -9,5 +9,9 @@ namespace pokemonAPI.Models
 
       //! One To Many relation [the 1-Side]
       public ICollection<Review> Reviews {get; set;}
+
+      //! Many-To-Many relations 
+      public ICollection<PokemonCategory> PokemonCategories {get; set;}
+      public ICollection<PokemonOwner> PokemonOwners {get; set;}
    }
 }

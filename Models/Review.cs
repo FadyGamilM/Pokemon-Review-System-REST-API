@@ -5,7 +5,8 @@ namespace pokemonAPI.Models
       [Key]
       public int Id {get; set;}
       public string Title { get; set; }
-      public string Text { get; set; }     
+      public string Text { get; set; }
+      public float Rating {get; set;}     
 
       //! One-To-Many relation with the Reviewer table [the N-side]
       public int ReviewerId {get; set;}
