@@ -59,3 +59,5 @@ F:\__111 COMPUTER SCIENCE\4th CSE 2022\dotnet\dev\pokemonAPI\obj\Debug\net6.0\re
 F:\__111 COMPUTER SCIENCE\4th CSE 2022\dotnet\dev\pokemonAPI\obj\Debug\net6.0\pokemonAPI.pdb
 F:\__111 COMPUTER SCIENCE\4th CSE 2022\dotnet\dev\pokemonAPI\obj\Debug\net6.0\pokemonAPI.genruntimeconfig.cache
 F:\__111 COMPUTER SCIENCE\4th CSE 2022\dotnet\dev\pokemonAPI\obj\Debug\net6.0\ref\pokemonAPI.dll
+F:\__111 COMPUTER SCIENCE\4th CSE 2022\dotnet\dev\pokemonAPI\bin\Debug\net6.0\AutoMapper.dll
+F:\__111 COMPUTER SCIENCE\4th CSE 2022\dotnet\dev\pokemonAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
