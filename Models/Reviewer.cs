@@ -8,5 +8,8 @@ namespace pokemonAPI.Models
       public string FirstName {get; set;}
 
       public string LastName {get ; set;}
+
+      //! One-To-Many relation with the Review [the 1-Side]
+      public ICollection<Review> Reviews {get; set;}
    }
 }
