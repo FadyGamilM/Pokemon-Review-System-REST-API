@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using pokemonAPI.DTOs.PokemonDtos;
 using pokemonAPI.Interfaces;
-using pokemonAPI.Models;
+using pokemonAPI.DTOs.ReviewDtos;
 namespace pokemonAPI.Controllers
 {  
    [ApiController]
@@ -76,6 +76,13 @@ namespace pokemonAPI.Controllers
             return Ok(exists);
          }
 
+         // get all reviews of specific pokeomon
+         [HttpGet("{pokemonID:int}/reviews")]
+         public async Task<IActionResult> GetPokemonReviews ([FromRoute] int pokemonID)
+         {
+            var reviews = await this._pokemonRepo.GetReviewsByPokemonId(pokemonID);
+            return Ok(this._mapper.Map<IEnumerable<ReadReview>>(reviews));
+         }
    }
 
 }

@@ -47,6 +47,13 @@ namespace pokemonAPI.Repositories
          return (decimal)(sumOfRatings / reviews.Count()); 
       }
 
+      // get all reviews of specific pokemon
+      public async Task<IEnumerable<Review>> GetReviewsByPokemonId(int pokemonID)
+      {
+         var reviews = await this._context.Reviews.Where(R => R.PokemonId== pokemonID).AsNoTracking().ToListAsync();
+         return reviews;
+      }
+
 
       public async Task<bool> IsPokemonExists(int Id)
       {

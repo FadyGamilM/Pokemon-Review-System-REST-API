@@ -19,5 +19,8 @@ namespace pokemonAPI.Interfaces
         // check if specific pokemon exists given an Id
         Task<bool> IsPokemonExists(int Id); 
 
+        // get all the reviews of specific pokemon 
+        Task<IEnumerable<Review>> GetReviewsByPokemonId(int pokemonID);
+
     }
 }
