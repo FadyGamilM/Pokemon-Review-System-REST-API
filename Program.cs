@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddScoped<IPokemonRepo, PokemonRepo>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<ICountryRepo, CountryRepo>();
+builder.Services.AddScoped<IOwnerRepo, OwnerRepo>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
