@@ -1,5 +1,5 @@
 using pokemonAPI.Models;
-namespace PokemonAPI.Interfaces
+namespace pokemonAPI.Interfaces
 {
    public interface ICategoryRepo
    {

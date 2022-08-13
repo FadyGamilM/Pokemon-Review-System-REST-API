@@ -15,6 +15,8 @@ builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 builder.Services.AddScoped<IPokemonRepo, PokemonRepo>();
+builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+builder.Services.AddScoped<ICountryRepo, CountryRepo>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();

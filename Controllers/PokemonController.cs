@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using pokemonAPI.DTOs.PokemonDtos;
 using pokemonAPI.Interfaces;
 using pokemonAPI.Models;
-namespace PokemonAPI.Controllers
+namespace pokemonAPI.Controllers
 {  
    [ApiController]
    [Route("api/pokemons")]
@@ -21,7 +21,7 @@ namespace PokemonAPI.Controllers
 
       // Get All Pokemons
       [HttpGet("")]
-      [ProducesResponseType(200, Type =typeof(IEnumerable<Pokemon>))]
+      // [ProducesResponseType(200, Type =typeof(IEnumerable<Pokemon>))]
       public async Task<IActionResult> GetPokemons ()
          {
             // get all pokemons in form of Pokemon class model
