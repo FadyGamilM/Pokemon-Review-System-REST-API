@@ -43,5 +43,16 @@ namespace pokemonAPI.Repositories
          var exists = this._context.Categories.Any(C => C.Id == Id);
          return exists;
       }
+
+      public async Task CreateCategory(Category category)
+      {
+         this._context.Categories.Add(category);
+         this.SaveChanges();
+      }
+
+      public async Task<bool> SaveChanges()
+      {
+         return (bool)(this._context.SaveChanges() > 0);
+      }
    }
 }
