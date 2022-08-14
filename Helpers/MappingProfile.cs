@@ -15,6 +15,7 @@ namespace pokemonAPI.Helpers
          CreateMap<Pokemon, ReadPokemon>().ReverseMap();
          //! Category Resource
          CreateMap<Category, ReadCategory>().ReverseMap();
+         CreateMap<CreateCategory, Category>().ReverseMap();
          //! Country Resource
          CreateMap<Country, ReadCountry>().ReverseMap();
          //! Owner Resource

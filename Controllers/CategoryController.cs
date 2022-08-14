@@ -75,6 +75,11 @@ namespace pokemonAPI.Controllers
             return StatusCode(500, ModelState);
          }
          return Ok("succeed");
+         // return CreatedAtRoute(
+         //    nameof(this.GetCategoryByIdAsync),
+         //    new { Id = this._mapper.Map<ReadCategory>(newCategory)},
+         //    this._mapper.Map<ReadCategory>(newCategory)
+         // );
 
       }
 
