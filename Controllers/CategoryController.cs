@@ -45,5 +45,38 @@ namespace pokemonAPI.Controllers
          var pokemonsDTO = this._mapper.Map<IEnumerable<ReadPokemon>>(pokemons);
          return Ok(pokemonsDTO);
       }
+
+      [HttpPost("")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      public async Task<IActionResult> CreateCategory([FromBody] CreateCategory category)
+      {
+         //* if the body of the request is empty .. so its a bad request
+         if (category == null)
+         {
+            return BadRequest(ModelState);
+         }
+         //* then we need check if we have an instance of this category before ..
+         var isCategoryExist = await this._categoryRepo.IsCategoryExistsByName(category.Name);
+         // if the category exists .. return 422 "the server understand the request and the body is right but it can't proceed with the rquest" 
+         if (isCategoryExist == true){
+            ModelState.AddModelError("", "Category already exists in DB");
+            return StatusCode(422, ModelState);
+         }
+         //* now if the body of the request is not valid .. return bad request 400
+         if(! ModelState.IsValid){
+            return BadRequest(ModelState);
+         }
+         //* mapping to the DB format
+         var newCategory = this._mapper.Map<Category>(category);
+         var creationResult = await this._categoryRepo.CreateCategory(newCategory);
+         if(!creationResult){
+            ModelState.AddModelError("", "Error while Saving the new category into the DB");
+            return StatusCode(500, ModelState);
+         }
+         return Ok("succeed");
+
+      }
+
    }
 }

@@ -13,7 +13,8 @@ namespace pokemonAPI.Interfaces
       //! check if specific category is exist by given id
       Task<bool> IsCategoryExists (int Id);
       /* ------------------------ Creating Functionalities ------------------------ */
-      Task CreateCategory(Category category);
+      Task<bool> CreateCategory(Category category);
+      Task<bool> IsCategoryExistsByName(string categoryName);
 
       /* ----------------------- Saving changes for EF COre ----------------------- */
       Task<bool> SaveChanges();

@@ -17,7 +17,6 @@ namespace pokemonAPI.Repositories
       { 
          var categories = await this._context.Categories
                                  .OrderBy(C=>C.Name)
-                                 .AsNoTracking()
                                  .ToListAsync();
          return categories;
       }
@@ -44,10 +43,20 @@ namespace pokemonAPI.Repositories
          return exists;
       }
 
-      public async Task CreateCategory(Category category)
+      public async Task<bool> CreateCategory(Category category)
       {
          this._context.Categories.Add(category);
-         this.SaveChanges();
+         var CreatitonResult = await this.SaveChanges();
+         return CreatitonResult;
+      }
+      public async Task<bool> IsCategoryExistsByName(string categoryName)
+      {
+         var category = await this._context.Categories.Where(C => C.Name.Trim().ToUpper() == categoryName.TrimEnd().ToUpper()).FirstOrDefaultAsync();
+         if (category != null){
+            return true;
+         }else{
+            return false;
+         }
       }
 
       public async Task<bool> SaveChanges()
