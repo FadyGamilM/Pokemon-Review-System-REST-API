@@ -45,8 +45,8 @@ namespace pokemonAPI.Repositories
 
       public async Task<bool> CreateCategory(Category category)
       {
-         this._context.Categories.Add(category);
-         var CreatitonResult = await this.SaveChanges();
+         await this._context.Categories.AddAsync(category);
+         var CreatitonResult = this.SaveChanges();
          return CreatitonResult;
       }
       public async Task<bool> IsCategoryExistsByName(string categoryName)
@@ -59,7 +59,7 @@ namespace pokemonAPI.Repositories
          }
       }
 
-      public async Task<bool> SaveChanges()
+      public bool SaveChanges()
       {
          return (bool)(this._context.SaveChanges() > 0);
       }

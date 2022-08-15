@@ -13,6 +13,7 @@ namespace pokemonAPI.Repositories
       {
          this._context = context;
       }
+
       // get all countries
       public async Task<IEnumerable<Country>> GetCountries()
       {
@@ -31,6 +32,26 @@ namespace pokemonAPI.Repositories
          var country = await this._context.Countries.FindAsync(countryId);
          await this._context.Entry(country).Collection(C => C.Owners).LoadAsync();
          return country.Owners;
+      }
+      // create a new country
+      public async Task<bool> CreateCountry(Country country)
+      {
+         await this._context.Countries.AddAsync(country);
+         return this.SaveChanges();
+      }
+      // check if the new country is exist in db before
+      public async Task<bool> IsCountryExistsByName(string countryName)
+      {
+         var country = await this._context.Countries.Where(C => C.Name == countryName).FirstOrDefaultAsync();
+         if (country == null){
+            return false;
+         }else{
+            return true;
+         }
+      }
+      public bool SaveChanges()
+      {
+         return (bool)(this._context.SaveChanges() > 0);
       }
    }
 }

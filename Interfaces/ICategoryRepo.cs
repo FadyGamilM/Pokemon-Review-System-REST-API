@@ -17,6 +17,6 @@ namespace pokemonAPI.Interfaces
       Task<bool> IsCategoryExistsByName(string categoryName);
 
       /* ----------------------- Saving changes for EF COre ----------------------- */
-      Task<bool> SaveChanges();
+      bool SaveChanges();
    }
 }
