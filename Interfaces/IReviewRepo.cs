@@ -11,5 +11,10 @@ namespace pokemonAPI.Interfaces
       
       // get the reviewer of this review given the review id
       Task<Reviewer> GetReviewer(int reviewID);
+
+      // create review
+      Task<bool> CreateReview(Review review);
+      // save changes
+      bool SaveChanges();
    }
 }

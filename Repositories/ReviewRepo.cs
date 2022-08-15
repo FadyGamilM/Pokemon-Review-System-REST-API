@@ -12,6 +12,7 @@ namespace pokemonAPI.Repositories
       {
          this._context = context;
       }
+
       public async Task<Review> GetReview(int reviewID)
       {
          var review = await this._context.Reviews.FindAsync(reviewID);
@@ -29,5 +30,14 @@ namespace pokemonAPI.Repositories
       {
          var reviews = await this._context.Reviews.AsNoTracking().ToListAsync();
          return reviews;      }
+      public async Task<bool> CreateReview(Review review)
+      {
+         await this._context.Reviews.AddAsync(review);
+         return this.SaveChanges();
+      }
+      public bool SaveChanges()
+      {
+         return (bool)(this._context.SaveChanges() > 0);
+      }
    }
 }
