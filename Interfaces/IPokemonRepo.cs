@@ -22,5 +22,13 @@ namespace pokemonAPI.Interfaces
         // get all the reviews of specific pokemon 
         Task<IEnumerable<Review>> GetReviewsByPokemonId(int pokemonID);
 
+        // create new pokemon
+        Task<bool> CreatePokemon(Pokemon pokemon, int ownerID, int categoryID);
+        // check if pokemon exists
+        Task<bool> IsPokemonExistsByName(string Name);
+
+        // save changes
+        bool SaveChanges();
+        
     }
 }

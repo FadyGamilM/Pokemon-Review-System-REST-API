@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using pokemonAPI.DTOs.PokemonDtos;
 using pokemonAPI.Interfaces;
 using pokemonAPI.DTOs.ReviewDtos;
+using pokemonAPI.Models;
+
 namespace pokemonAPI.Controllers
 {  
    [ApiController]
@@ -82,6 +84,36 @@ namespace pokemonAPI.Controllers
          {
             var reviews = await this._pokemonRepo.GetReviewsByPokemonId(pokemonID);
             return Ok(this._mapper.Map<IEnumerable<ReadReview>>(reviews));
+         }
+
+         // create a new pokemon
+         [HttpPost("")]
+         [ProducesResponseType(204)]
+         [ProducesResponseType(400)]
+         public async Task<IActionResult> CreatePokemon ( [FromBody] CreatePokemon pokemonDto,
+                                                                                    [FromQuery] int ownerID,
+                                                                                    [FromQuery] int categoryID)
+         {
+            if (pokemonDto == null){
+               return BadRequest(ModelState);
+            }
+            var ExistedPokemon = await this._pokemonRepo.IsPokemonExistsByName(pokemonDto.Name);
+            if (ExistedPokemon == true){
+               ModelState.AddModelError("", "This pokemon already exists");
+               return StatusCode(422, ModelState);
+            }
+            if (!ModelState.IsValid){
+               return BadRequest(ModelState);
+            }
+            var pokemon = this._mapper.Map<Pokemon>(pokemonDto);
+            var CreationResult = await this._pokemonRepo.CreatePokemon(pokemon, ownerID, categoryID);
+            if (CreationResult == false){
+               ModelState.AddModelError("", "Error while saving the new pokemon into the DB");
+               return StatusCode(500, ModelState);
+            }else{
+               return Ok("Succeed");
+            }
+
          }
    }
 

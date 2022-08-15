@@ -60,5 +60,46 @@ namespace pokemonAPI.Repositories
          var exists = this._context.Pokemons.Any(P => P.Id == Id);
          return exists;
       }
+
+      public async Task<bool> CreatePokemon(Pokemon pokemon, int ownerID, int categoryID)
+      {
+         //* (1) get the entities from the tables that the pokemon make a M-N relatioship with
+         var categoryEntity = await this._context.Categories.Where(C => C.Id == categoryID).FirstOrDefaultAsync();
+         var ownerEntity = await this._context.Owners.Where(O => O.Id == ownerID).FirstOrDefaultAsync();
+         //* (2) Create the join-table entities to be added to the join-tables
+         var PokemonCategoryEntity = new PokemonCategory()
+         {
+            Pokemon = pokemon,
+            Category = categoryEntity
+         };
+         var PokemonOwnerEntity = new PokemonOwner()
+         {
+            Pokemon = pokemon,
+            Owner = ownerEntity
+         };
+         //* (3) Add the join-Entities to the join-tables
+         await this._context.PokemonCategories.AddAsync(PokemonCategoryEntity);
+         await this._context.PokemonOwners.AddAsync(PokemonOwnerEntity);
+         //* (4) add the Pokemon entity now 
+         await this._context.Pokemons.AddAsync(pokemon);
+         //* (5) save the tracked changes by EFCore
+         return this.SaveChanges();
+      }
+
+      public async Task<bool> IsPokemonExistsByName(string pokemonName)
+      {
+         var exists = await this._context.Pokemons.Where(P => P.Name == pokemonName).FirstOrDefaultAsync();
+         if (exists == null){
+            return false;
+         }else{
+            return true;
+         }
+      }
+
+
+      public bool SaveChanges()
+      {
+         return (bool)(this._context.SaveChanges() > 0);
+      }
    }
 }
