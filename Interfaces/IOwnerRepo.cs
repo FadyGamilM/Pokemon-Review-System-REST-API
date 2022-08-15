@@ -9,6 +9,9 @@ namespace pokemonAPI.Interfaces
         Task<Owner> GetOwner(int ownerID);
         // get all pokemons of specific owner given the owner id
         Task<IEnumerable<Pokemon>> GetPokemonsByOwner(int ownerID);
-        
+        // create new owner
+        Task<bool> CreateOwner(Owner owner);
+        // save changes
+        bool SaveChanges();
     }
 }

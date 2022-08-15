@@ -29,6 +29,18 @@ namespace pokemonAPI.Repositories
          var pokemons = await this._context.PokemonOwners.Where(PO => PO.OwnerId == ownerID).Select(PO => PO.Pokemon).AsNoTracking().ToListAsync();
          return pokemons;
       }
+      // create new owner
+      public async Task<bool> CreateOwner (Owner owner)
+      {
+         await this._context.Owners.AddAsync(owner);
+         var creationResult = this.SaveChanges();
+         return creationResult;
+      }
+      // save changes
+      public bool SaveChanges()
+      {
+         return (bool)(this._context.SaveChanges() > 0);
+      }
 
    }
 }

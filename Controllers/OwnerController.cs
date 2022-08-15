@@ -3,6 +3,8 @@ using pokemonAPI.Interfaces;
 using pokemonAPI.DTOs.OwnerDtos;
 using pokemonAPI.DTOs.PokemonDtos;
 using AutoMapper;
+using pokemonAPI.Models;
+
 namespace pokemonAPI.Controllers
 {
    [ApiController]
@@ -11,11 +13,13 @@ namespace pokemonAPI.Controllers
    {
       // DI pattern
       private readonly IOwnerRepo _ownerRepo;
+      private readonly ICountryRepo _countryRepo;
       private readonly IMapper _mapper;
-      public OwnerController(IOwnerRepo ownerRepo, IMapper mapper)
+      public OwnerController(IOwnerRepo ownerRepo, IMapper mapper, ICountryRepo countryRepo)
       {
          this._mapper = mapper;
          this._ownerRepo = ownerRepo;
+         this._countryRepo = countryRepo;
       }
       // get all owners 
       [HttpGet("")]
@@ -40,6 +44,30 @@ namespace pokemonAPI.Controllers
       {
          var pokemons = await this._ownerRepo.GetPokemonsByOwner(ownerID);
          return Ok(this._mapper.Map<IEnumerable<ReadPokemon>>(pokemons));
+      }
+      // create a new owner
+      [HttpPost("")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      public async Task<IActionResult> CreateOwner([FromQuery] int counretID, [FromBody] CreateOwner ownerDto)
+      {
+         if (ownerDto == null){
+            return BadRequest(ModelState);
+         }
+
+         if (!ModelState.IsValid){
+            return BadRequest(ModelState);
+         }
+
+         var owner = this._mapper.Map<Owner>(ownerDto);
+         owner.Country = await this._countryRepo.GetCountry(counretID);
+         var creationResult = await this._ownerRepo.CreateOwner(owner);
+         if (creationResult==true){
+            return Ok("Succeed");
+         } else{
+            ModelState.AddModelError("", "Error while saving the new owner in DB");
+            return StatusCode(500, ModelState);
+         }
       }
    }
 }

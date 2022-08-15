@@ -21,6 +21,7 @@ namespace pokemonAPI.Helpers
          CreateMap<CreateCountry, Country>().ReverseMap();
          //! Owner Resource
          CreateMap<Owner, ReadOwner>().ReverseMap();
+         CreateMap<CreateOwner, Owner>().ReverseMap();
       }
    }
 }
