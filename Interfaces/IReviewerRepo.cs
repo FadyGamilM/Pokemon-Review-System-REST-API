@@ -12,5 +12,9 @@ namespace pokemonAPI.Interfaces
       Task<IEnumerable<Review>> GetReviews(int reviewerID);
       // get all the pokemons that this reviewer wrote reviews about
       Task<IEnumerable<Pokemon>> GetPokemons(int reviewerID);
+      // create new reviewer 
+      Task<bool> CreateReviewer(Reviewer reviewer);
+      // save changes
+      bool SaveChanges();
    }
 }

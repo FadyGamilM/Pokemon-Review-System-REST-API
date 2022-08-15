@@ -44,5 +44,16 @@ namespace pokemonAPI.Repositories
          }
          return pokemons;
       }
+      // create reviewer 
+      public async Task<bool> CreateReviewer(Reviewer reviewer)
+      {
+         await this._context.Reviewers.AddAsync(reviewer);
+         return this.SaveChanges();
+      }
+      // save changes
+      public bool SaveChanges()
+      {
+         return (bool)(this._context.SaveChanges() > 0);
+      }
    }
 }

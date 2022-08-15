@@ -30,5 +30,24 @@ namespace pokemonAPI.Controllers
          var reviewerDto = this._mapper.Map<ReadReviewer>(reviewer);
          return Ok(reviewerDto);
       }      
+      [HttpPost("")]
+      public async Task<IActionResult> CreateReviewer([FromBody] CreateReviewer reviewerDto)
+      {
+         if(reviewerDto == null)
+         {
+            return BadRequest(ModelState);
+         }
+         if(!ModelState.IsValid){
+            return BadRequest(ModelState);
+         }
+         var reviewer = this._mapper.Map<Reviewer>(reviewerDto);
+         var creationResult = await this._reviewerRepo.CreateReviewer(reviewer);
+         if (creationResult == true){
+            return Ok("Succeed");
+         }else{
+            ModelState.AddModelError("", "Error while saving the new reviewer into the D");
+            return StatusCode(500, ModelState);
+         }
+      }
    }
 }
